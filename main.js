@@ -1,11 +1,18 @@
 import { Telegraf, Markup } from "telegraf";
 
+
 const STICKER_ID = 'CAACAgIAAxkBAAELshlnijBYb5muDGZjYrpaBeDgiCulVQACfwoBAAHsKUhIgGGW2YO3xco2BA';
 const token = "7919809731:AAHR9IPjbFtZondrgGKtZrP5d6L_b_vsTvA";
 
 const bot = new Telegraf(token);
 
-bot.command('Izuchat Kruki', (ctx) => {
+const keyboard = [
+    [{ text: 'Пройти тест', callback_data: 'button_click' }]
+];
+
+
+bot.on('callback_query', (ctx) => {
+    ctx.answerCbQuery();
     ctx.replyWithSticker(STICKER_ID);
     ctx.reply("Что это за крюк");
 });
@@ -13,16 +20,13 @@ bot.command('Izuchat Kruki', (ctx) => {
 bot.start((ctx) => {
     return ctx.reply(
         'Привет, давай изучать крюки!',
-        Markup.inlineKeyboard([
-            Markup.button.callback("Пройти тест", "like"),
-        ])
+        {
+            reply_markup: {
+                inline_keyboard: keyboard
+            }
+        },
+
     )
 })
-
-bot.on("message", (ctx) => {
-    ctx.reply("Неправильный ответ");
-
-    console.log("Сообщение юзера:", ctx.message.sticker);
-});
 
 bot.launch();
