@@ -32,10 +32,10 @@ bot.on("text", (ctx) => {
   const currentQuestion = baza[currentQuestionIndex];
 
   if (currentQuestion.answer.includes(userAnswer)) {
-    userProgress[userId]++;
+    userProgress[userId]+ 1;
     ctx.reply("Правильно");
   } else {
-    userProgress[userId]++;
+    userProgress[userId]+ 1;
     ctx.reply("Чел, иди в духовку учись");
   }
 
