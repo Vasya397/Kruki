@@ -24,6 +24,8 @@ bot.on("callback_query", (ctx) => {
   sendQuestion(ctx, userId);
 });
 
+let numAnswer = 0;
+
 bot.on("text", (ctx) => {
   const userId = ctx.from.id;
 
@@ -32,11 +34,10 @@ bot.on("text", (ctx) => {
   const currentQuestion = baza[currentQuestionIndex];
 
   if (currentQuestion.answer.includes(userAnswer)) {
-    userProgress[userId]+ 1;
-    ctx.reply("Правильно");
+    userProgress[userId] + 1;
+    numAnswer++;
   } else {
-    userProgress[userId]+ 1;
-    ctx.reply("Чел, иди в духовку учись");
+    userProgress[userId] + 1;
   }
 
   if (userProgress[userId] !== undefined) {
@@ -45,7 +46,7 @@ bot.on("text", (ctx) => {
     if (userProgress[userId] < baza.length) {
       sendQuestion(ctx, userId);
     } else {
-      ctx.reply("Тест завершен!");
+      ctx.reply(`Ты ответил на ${numAnswer} из ${baza.length}`);
       delete userProgress[userId];
     }
   }
