@@ -15,15 +15,31 @@ bot.start((ctx) => {
   });
 });
 
-const keyboard = [[{ text: "Пройти тест", callback_data: "button_click" }]];
+const keyboard = [[{ text: "Тесты", callback_data: "button_test" }]];
 
 const userProgress = {};
 
 let numTrueAnswer = 0;
 
+bot.command("test", (ctx) => {
+  return ctx.reply("Тесты", {
+    reply_markup: {
+      inline_keyboard: [[{ text: "Тест 1", callback_data: "button_click" }]],
+    },
+  });
+})
+
 bot.on("callback_query", (ctx) => {
   const userId = ctx.from.id;
   const buttonData = ctx.callbackQuery.data;
+
+  if (buttonData === "button_test") {
+    return ctx.reply("Тесты", {
+      reply_markup: {
+        inline_keyboard: [[{ text: "Тест 1", callback_data: "button_click" }]],
+      },
+    });
+  }
 
   if (userProgress[userId] === undefined) {
     userProgress[userId] = 0;
@@ -68,18 +84,26 @@ bot.on("callback_query", (ctx) => {
 function sendQuestion(ctx, userId) {
   const question = baza[userProgress[userId]];
   const answer = [
-    { text: question.answer[0], callback_data: "true_answer" },
-    { text: question.answer[1], callback_data: "false_2" },
-    { text: question.answer[2], callback_data: "false_3" },
-    { text: question.answer[3], callback_data: "false_4" },
+    [
+      { text: question.answer[2], callback_data: "false_3" },
+      { text: question.answer[3], callback_data: "false_4" },],
+    [
+      { text: question.answer[0], callback_data: "true_answer" },
+      { text: question.answer[1], callback_data: "false_2" },]
   ];
-  const mixer = shuffle(answer);
+  const mixer0 = shuffle(answer[0]);
+  const mixer1 = shuffle(answer[1]);
   ctx.replyWithSticker(question.sticker);
-  ctx.reply(question.text, {
-    reply_markup: {
-      inline_keyboard: [mixer],
-    },
-  });
+  setTimeout(() => {
+    ctx.reply(question.text, {
+      reply_markup: {
+        inline_keyboard: [
+          mixer1,
+          mixer0
+        ],
+      },
+    });
+  }, 300)
 }
 
 bot.launch();
