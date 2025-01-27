@@ -40,6 +40,21 @@ async function saveTestResult(userId, correctAnswers) {
     console.error("Ошибка сохранения данных в MongoDB:", error);
   }
 }
+
+async function getTestResult(userId) {
+  try {
+    const collection = db.collection("user_results");
+    const userResult = await collection.findOne({ userId });
+    if (userResult) {
+      return userResult.correctAnswers; // Возвращаем количество правильных ответов
+    } else {
+      return null; // Если результат не найден, возвращаем null
+    }
+  } catch (error) {
+    console.error("Ошибка получения данных из MongoDB:", error);
+    return null;
+  }
+}
 // База данных
 
 bot.start((ctx) => {
@@ -59,21 +74,40 @@ let numTrueAnswer = 0;
 bot.command("test", (ctx) => {
   return ctx.reply("Тесты", {
     reply_markup: {
-      inline_keyboard: [[{ text: "Тест 1", callback_data: "button_click" }]],
+      inline_keyboard: [
+        [{ text: "Тест 1", callback_data: "button_click" }],
+        [{ text: "Мои тесты", callback_data: "button_result" }],
+      ],
     },
   });
 });
 
-bot.on("callback_query", (ctx) => {
+bot.on("callback_query", async (ctx) => {
   const userId = ctx.from.id;
   const buttonData = ctx.callbackQuery.data;
 
   if (buttonData === "button_test") {
     return ctx.reply("Тесты", {
       reply_markup: {
-        inline_keyboard: [[{ text: "Тест 1", callback_data: "button_click" }]],
+        inline_keyboard: [
+          [{ text: "Тест 1", callback_data: "button_click" }],
+          [{ text: "Мои тесты", callback_data: "button_result" }],
+        ],
       },
     });
+  }
+
+  if (buttonData === "button_result") {
+    const correctAnswers = await getTestResult(userId);
+
+    if (correctAnswers !== null) {
+      ctx.reply(
+        `Твой результат на Тест 1: ${correctAnswers} из ${baza.length}`
+      );
+    } else {
+      ctx.reply("Ты еще не прошел тест.");
+    }
+    return;
   }
 
   if (userProgress[userId] === undefined) {
