@@ -4,6 +4,8 @@ import shuffle from "./shuffle.js";
 import answerStik from "./answerStik.json" assert { type: "json" };
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import Lesson_1 from './Lessons/Lesson_1.js'
+
 dotenv.config();
 
 const token = "7919809731:AAHR9IPjbFtZondrgGKtZrP5d6L_b_vsTvA";
@@ -47,7 +49,7 @@ bot.start((ctx) => {
     reply_markup: {
       inline_keyboard: [
         [
-          { text: "Урок 1", callback_data: "button_test" },
+          { text: "Урок 1", callback_data: "lesson_1" },
           { text: "Урок 2", callback_data: "button_test" }
         ],
         [
@@ -83,6 +85,7 @@ bot.command("kruki", (ctx) => {
 bot.on("callback_query", (ctx) => {
   const userId = ctx.from.id;
   const buttonData = ctx.callbackQuery.data;
+  Lesson_1(ctx, buttonData)
 
   if (buttonData === "button_test") {
     return ctx.reply("Тесты", {
@@ -91,6 +94,7 @@ bot.on("callback_query", (ctx) => {
       },
     });
   }
+
 
   if (userProgress[userId] === undefined) {
     userProgress[userId] = 0;
@@ -110,27 +114,29 @@ bot.on("callback_query", (ctx) => {
     userProgress[userId]++;
   }
 
-  if (userProgress[userId] < baza.length) {
-    sendQuestion(ctx, userId);
-  } else {
-    ctx.reply("Тест завершен!");
+  if (buttonData === "button_click") {
+    if (userProgress[userId] < baza.length) {
+      sendQuestion(ctx, userId);
+    } else {
+      ctx.reply("Тест завершен!");
 
-    saveTestResult(userId, numTrueAnswer);
+      saveTestResult(userId, numTrueAnswer);
 
-    if (numTrueAnswer >= 0 && numTrueAnswer <= 4) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-      ctx.replyWithSticker(answerStik.id_0_4);
-    } else if (numTrueAnswer >= 5 && numTrueAnswer <= 7) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-      ctx.replyWithSticker(answerStik.id_5_7);
-    } else if (numTrueAnswer >= 8 && numTrueAnswer <= 9) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-      ctx.replyWithSticker(answerStik.id_8_9);
-    } else if (numTrueAnswer == 10) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-      ctx.replyWithSticker(answerStik.id_10);
+      if (numTrueAnswer >= 0 && numTrueAnswer <= 4) {
+        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+        ctx.replyWithSticker(answerStik.id_0_4);
+      } else if (numTrueAnswer >= 5 && numTrueAnswer <= 7) {
+        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+        ctx.replyWithSticker(answerStik.id_5_7);
+      } else if (numTrueAnswer >= 8 && numTrueAnswer <= 9) {
+        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+        ctx.replyWithSticker(answerStik.id_8_9);
+      } else if (numTrueAnswer == 10) {
+        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+        ctx.replyWithSticker(answerStik.id_10);
+      }
+      delete userProgress[userId];
     }
-    delete userProgress[userId];
   }
 });
 
