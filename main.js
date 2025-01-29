@@ -69,8 +69,6 @@ const keyboard = [[{ text: "Тесты", callback_data: "button_test" }]];
 
 const userProgress = {};
 
-let numTrueAnswer = 0;
-
 bot.command("test", (ctx) => {
   return ctx.reply("Тесты", {
     reply_markup: {
@@ -110,42 +108,66 @@ bot.on("callback_query", async (ctx) => {
     return;
   }
 
-  if (userProgress[userId] === undefined) {
-    userProgress[userId] = 0;
+  if (buttonData === "button_click") {
+    if (!userProgress[userId]) {
+      userProgress[userId] = {
+        progress: 0,
+        numTrueAnswer: 0,
+      };
+    }
+
+    userProgress[userId].progress = 0;
+    userProgress[userId].numTrueAnswer = 0;
   }
 
   if (buttonData === "true_answer") {
-    userProgress[userId]++;
-    numTrueAnswer++;
-  }
-  if (buttonData === "false_2") {
-    userProgress[userId]++;
-  }
-  if (buttonData === "false_3") {
-    userProgress[userId]++;
-  }
-  if (buttonData === "false_4") {
-    userProgress[userId]++;
+    userProgress[userId].numTrueAnswer++;
+    userProgress[userId].progress++;
   }
 
-  if (userProgress[userId] < baza.length) {
+  if (
+    buttonData === "false_2" ||
+    buttonData === "false_3" ||
+    buttonData === "false_4"
+  ) {
+    userProgress[userId].progress++;
+  }
+
+  if (userProgress[userId].progress < baza.length) {
     sendQuestion(ctx, userId);
   } else {
     ctx.reply("Тест завершен!");
 
-    saveTestResult(userId, numTrueAnswer);
+    saveTestResult(userId, userProgress[userId].numTrueAnswer);
 
-    if (numTrueAnswer >= 0 && numTrueAnswer <= 4) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+    if (
+      userProgress[userId].numTrueAnswer >= 0 &&
+      userProgress[userId].numTrueAnswer <= 4
+    ) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
       ctx.replyWithSticker(answerStik.id_0_4);
-    } else if (numTrueAnswer >= 5 && numTrueAnswer <= 7) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+    } else if (
+      userProgress[userId].numTrueAnswer >= 5 &&
+      userProgress[userId].numTrueAnswer <= 7
+    ) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
       ctx.replyWithSticker(answerStik.id_5_7);
-    } else if (numTrueAnswer >= 8 && numTrueAnswer <= 9) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+    } else if (
+      userProgress[userId].numTrueAnswer >= 8 &&
+      userProgress[userId].numTrueAnswer <= 9
+    ) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
       ctx.replyWithSticker(answerStik.id_8_9);
-    } else if (numTrueAnswer == 10) {
-      ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
+    } else if (userProgress[userId].numTrueAnswer == 10) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
       ctx.replyWithSticker(answerStik.id_10);
     }
     delete userProgress[userId];
@@ -153,7 +175,7 @@ bot.on("callback_query", async (ctx) => {
 });
 
 function sendQuestion(ctx, userId) {
-  const question = baza[userProgress[userId]];
+  const question = baza[userProgress[userId].progress];
   const answer = [
     [
       { text: question.answer[2], callback_data: "false_3" },
