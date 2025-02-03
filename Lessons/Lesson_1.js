@@ -38,6 +38,28 @@ function Lesson_1(ctx, buttonData) {
             }
         });
     }
+
+    if (buttonData === "Further_3") {
+        return ctx.reply(
+            'Пометы составляли начала полных слов, употреблявшихся в педагогике пения, современной происхождению самих пометь.\n Г - от слова гораздо низко;\n H — от слова низко;\n C - от слова средним гласом\n м - от слова мрачно\n п - от выражения повыше мрачнаго согласия\n п - от слова высоко\n Эти помёты называются „степенными", потому что указывают степень высоты звука.',
+            {
+                reply_markup: {
+                    inline_keyboard: [[{ text: "Дальше", callback_data: "Further_4" }]],
+                },
+            }
+        );
+    }
+
+    if (buttonData === "Further_4") {
+        return ctx.reply(
+            '',
+            {
+                reply_markup: {
+                    inline_keyboard: [[{ text: "Дальше", callback_data: "Further_5" }]],
+                },
+            }
+        );
+    }
 };
 
 export default Lesson_1;

@@ -67,8 +67,6 @@ bot.start((ctx) => {
 
 const userProgress = {};
 
-let numTrueAnswer = 0;
-
 bot.command("test", (ctx) => {
   return ctx.reply("Тесты", {
     reply_markup: {
@@ -85,7 +83,9 @@ bot.command("kruki", (ctx) => {
 bot.on("callback_query", (ctx) => {
   const userId = ctx.from.id;
   const buttonData = ctx.callbackQuery.data;
+
   Lesson_1(ctx, buttonData)
+
 
   if (buttonData === "button_test") {
     return ctx.reply("Тесты", {
@@ -95,53 +95,82 @@ bot.on("callback_query", (ctx) => {
     });
   }
 
-
-  if (userProgress[userId] === undefined) {
-    userProgress[userId] = 0;
-  }
-
   if (buttonData === "true_answer") {
-    userProgress[userId]++;
-    numTrueAnswer++;
+    userProgress[userId].numTrueAnswer++;
+    userProgress[userId].progress++;
   }
-  if (buttonData === "false_2") {
-    userProgress[userId]++;
-  }
-  if (buttonData === "false_3") {
-    userProgress[userId]++;
-  }
-  if (buttonData === "false_4") {
-    userProgress[userId]++;
+
+  if (
+    buttonData === "false_2" ||
+    buttonData === "false_3" ||
+    buttonData === "false_4"
+  ) {
+    userProgress[userId].progress++;
   }
 
   if (buttonData === "button_click") {
-    if (userProgress[userId] < baza.length) {
-      sendQuestion(ctx, userId);
-    } else {
-      ctx.reply("Тест завершен!");
-
-      saveTestResult(userId, numTrueAnswer);
-
-      if (numTrueAnswer >= 0 && numTrueAnswer <= 4) {
-        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-        ctx.replyWithSticker(answerStik.id_0_4);
-      } else if (numTrueAnswer >= 5 && numTrueAnswer <= 7) {
-        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-        ctx.replyWithSticker(answerStik.id_5_7);
-      } else if (numTrueAnswer >= 8 && numTrueAnswer <= 9) {
-        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-        ctx.replyWithSticker(answerStik.id_8_9);
-      } else if (numTrueAnswer == 10) {
-        ctx.reply(`Ты ответил на ${numTrueAnswer} из ${baza.length}`);
-        ctx.replyWithSticker(answerStik.id_10);
-      }
-      delete userProgress[userId];
+    if (!userProgress[userId]) {
+      userProgress[userId] = {
+        progress: 0,
+        numTrueAnswer: 0,
+      };
     }
+
+    userProgress[userId].progress = 0;
+    userProgress[userId].numTrueAnswer = 0;
   }
-});
+
+  if (
+    buttonData === "false_2" ||
+    buttonData === "false_3" ||
+    buttonData === "false_4" ||
+    buttonData === "button_click" ||
+    buttonData === "true_answer"
+  ) {
+  if (userProgress[userId].progress < baza.length) {
+    sendQuestion(ctx, userId);
+  } else {
+    ctx.reply("Тест завершен!");
+
+    saveTestResult(userId, userProgress[userId].numTrueAnswer);
+
+    if (
+      userProgress[userId].numTrueAnswer >= 0 &&
+      userProgress[userId].numTrueAnswer <= 4
+    ) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
+      ctx.replyWithSticker(answerStik.id_0_4);
+    } else if (
+      userProgress[userId].numTrueAnswer >= 5 &&
+      userProgress[userId].numTrueAnswer <= 7
+    ) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
+      ctx.replyWithSticker(answerStik.id_5_7);
+    } else if (
+      userProgress[userId].numTrueAnswer >= 8 &&
+      userProgress[userId].numTrueAnswer <= 9
+    ) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
+      ctx.replyWithSticker(answerStik.id_8_9);
+    } else if (userProgress[userId].numTrueAnswer == 10) {
+      ctx.reply(
+        `Ты ответил на ${userProgress[userId].numTrueAnswer} из ${baza.length}`
+      );
+      ctx.replyWithSticker(answerStik.id_10);
+    }
+    delete userProgress[userId];
+  }
+}}
+);
 
 function sendQuestion(ctx, userId) {
-  const question = baza[userProgress[userId]];
+  const question = baza[userProgress[userId].progress];
   const answer = [
     [
       { text: question.answer[2], callback_data: "false_3" },
@@ -154,11 +183,16 @@ function sendQuestion(ctx, userId) {
   ];
   const mixer0 = shuffle(answer[0]);
   const mixer1 = shuffle(answer[1]);
+  const answers = [
+    mixer0,
+    mixer1
+  ];
+  const mixer = shuffle(answers);
   ctx.replyWithSticker(question.sticker);
   setTimeout(() => {
     ctx.reply(question.text, {
       reply_markup: {
-        inline_keyboard: [mixer1, mixer0],
+        inline_keyboard: mixer,
       },
     });
   }, 300);
