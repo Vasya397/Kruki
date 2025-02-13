@@ -51,11 +51,24 @@ function Lesson_1(ctx, buttonData) {
     }
 
     if (buttonData === "Further_4") {
+        return  ctx.replyWithPhoto('https://i.yapx.ru/YcvvV.png', {
+            caption: 'Название степеных помет.\n Пометы эти пишутся с левой стороны знамен (крюков) и бывает при каждом знамени не более одной пометы, будет ли само знамя обозначать один или всколько звуков. Причем помета указываеть высший звук в знамени.',
+            reply_markup: {
+                inline_keyboard: [
+                    [
+                        { text: 'Дальше', callback_data: 'Further_5' }
+                    ]
+                ]
+            }
+        });
+    }
+
+    if (buttonData === "Further_5") {
         return ctx.reply(
-            '',
+            'Другие пометы:\nЛО — Ломка. От слова ломить, т-е. петь не рядовой звук, а следующий после рядового, или иногда чрез два звука.\n',
             {
                 reply_markup: {
-                    inline_keyboard: [[{ text: "Дальше", callback_data: "Further_5" }]],
+                    inline_keyboard: [[{ text: "Дальше", callback_data: "Further_6" }]],
                 },
             }
         );

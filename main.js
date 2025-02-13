@@ -45,22 +45,9 @@ async function saveTestResult(userId, correctAnswers) {
 // База данных
 
 bot.start((ctx) => {
-  return ctx.reply("Привет, давай изучать крюки! Здесь имеется много уроков, пройдя которые вы узнаете много крюков. Проходи по уроку в день и ты увидишь результат!!!🎼🎹🎤", {
+  return ctx.reply("Привет, давай изучать крюки! Вы можете проверить себя на знание крюков и пройти много тестов или пройти много уроков о крюках)", {
     reply_markup: {
-      inline_keyboard: [
-        [
-          { text: "Урок 1", callback_data: "lesson_1" },
-          { text: "Урок 2", callback_data: "button_test" }
-        ],
-        [
-          { text: "Урок 3", callback_data: "button_test" },
-          { text: "Урок 4", callback_data: "button_test" }
-        ],
-        [
-          { text: "Урок 5", callback_data: "button_test" },
-          { text: "Урок 6", callback_data: "button_test" }
-        ]
-      ],
+      inline_keyboard: [[{ text: "Тесты", callback_data: "button_test" },{ text: "Уроки", callback_data: "lessons" }]],
     },
   });
 });
@@ -68,9 +55,9 @@ bot.start((ctx) => {
 const userProgress = {};
 
 bot.command("test", (ctx) => {
-  return ctx.reply("Тесты", {
+  return ctx.reply("Здесь имеется много тестов!! Проходи их чтобы понять как хорошо ты знаешь крюки)🎼🎼", {
     reply_markup: {
-      inline_keyboard: [[{ text: "Тест 1", callback_data: "button_click" }]],
+      inline_keyboard: [[{ text: "Тест 1", callback_data: "test_1" },{ text: "Тест 2", callback_data: "test_2" }]],
     },
   });
 });
@@ -86,11 +73,31 @@ bot.on("callback_query", (ctx) => {
 
   Lesson_1(ctx, buttonData)
 
+  if (buttonData === "lessons") {
+    return ctx.reply("Здесь имеется много уроков, пройдя которые вы узнаете много крюков. Проходи по уроку в день и ты увидишь результат!!!🎼🎹🎤", {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: "Урок 1", callback_data: "lesson_1" },
+            { text: "Урок 2", callback_data: "button_test" }
+          ],
+          [
+            { text: "Урок 3", callback_data: "button_test" },
+            { text: "Урок 4", callback_data: "button_test" }
+          ],
+          [
+            { text: "Урок 5", callback_data: "button_test" },
+            { text: "Урок 6", callback_data: "button_test" }
+          ]
+        ],
+      },
+    });
+  }
 
   if (buttonData === "button_test") {
-    return ctx.reply("Тесты", {
+    return ctx.reply("Здесь имеется много тестов!! Проходи их чтобы понять как хорошо ты знаешь крюки)🎼🎼", {
       reply_markup: {
-        inline_keyboard: [[{ text: "Тест 1", callback_data: "button_click" }]],
+        inline_keyboard: [[{ text: "Тест 1", callback_data: "test_1" },{ text: "Тест 2", callback_data: "test_2" }]],
       },
     });
   }
@@ -98,6 +105,9 @@ bot.on("callback_query", (ctx) => {
   if (buttonData === "true_answer") {
     userProgress[userId].numTrueAnswer++;
     userProgress[userId].progress++;
+    if (userProgress[userId].progress < baza.length) {
+      ctx.reply("Правильно!!😃");
+    }
   }
 
   if (
@@ -106,9 +116,12 @@ bot.on("callback_query", (ctx) => {
     buttonData === "false_4"
   ) {
     userProgress[userId].progress++;
+    if (userProgress[userId].progress < baza.length) {
+      ctx.reply("Не правильно😞");
+    }
   }
 
-  if (buttonData === "button_click") {
+  if (buttonData === "test_1") {
     if (!userProgress[userId]) {
       userProgress[userId] = {
         progress: 0,
@@ -124,7 +137,7 @@ bot.on("callback_query", (ctx) => {
     buttonData === "false_2" ||
     buttonData === "false_3" ||
     buttonData === "false_4" ||
-    buttonData === "button_click" ||
+    buttonData === "test_1" ||
     buttonData === "true_answer"
   ) {
   if (userProgress[userId].progress < baza.length) {
