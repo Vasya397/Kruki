@@ -1,0 +1,116 @@
+[
+  [
+  {
+    "text": "Что это за крюк 1/11?",
+    "sticker": "CAACAgIAAxkBAAELshlnijBYb5muDGZjYrpaBeDgiCulVQACfwoBAAHsKUhIgGGW2YO3xco2BA",
+    "answer": ["Крюк", "Палка", "Челюстка", "Запятая"]
+  },
+  {
+    "text": "Что это за крюк 2/11?",
+    "sticker": "CAACAgIAAxkBAAELshtnijB1SNT8QTafF81qYinjttK2UQACpGUAAqvjSUgbhjeIh3Dd_TYE",
+    "answer": ["Крюк c отсечкой", "Крыж", "Крюк", "Челюстка"]
+  },
+  {
+    "text": "Что это за крюк 3/11?",
+    "sticker": "CAACAgIAAxkBAAELsh1nijB22nAEstTBfLNPJAnkObjHMgAC32AAAppdSUgUkDdAke7HYDYE",
+    "answer": ["Крюк с задержкой", "Чашка", "Скамейца", "Запятая"]
+  },
+  {
+    "text": "Что это за крюк 4/11?",
+    "sticker": "CAACAgIAAxkBAAELsh9nijB3L6Qs_YSOZsH9d7ha2OJF-AACAWQAAordUEi_uKhD7hgX7DYE",
+    "answer": ["Крюк с ломкой", "Параклит", "Скамейца", "Переводка"]
+  },
+  {
+    "text": "Что это за крюк 5/11?",
+    "sticker": "CAACAgIAAxkBAAELsiFnijB43BiVNbZ3zva_fxTiGJeqcwACh2kAAte4SUhNINbCwICAejYE",
+    "answer": ["Крюк с подчашием", "Переводка", "Параклит с подвёрткой", "Крыж"]
+  },
+  {
+    "text": "Что это за крюк 6/11?",
+    "sticker": "CAACAgIAAxkBAAELsiNnijB5qyS-wqzLvDzA4PfwzR9mAQACAmcAAhCPSEj9IDoBJY68yzYE",
+    "answer": ["Крюк с подвёрткой", "Полукулизма", "Рог", "Подчашие"]
+  },
+  {
+    "text": "Что это за крюк 7/11?",
+    "sticker": "CAACAgIAAxkBAAELsiVnijB6YNkN_Axroy3NSS4_2Amv4QACeGYAAgTjSUiWHzYZvUxqBTYE",
+    "answer": ["Параклит", "Сложитие", "Подчашие", "Труба"]
+  },
+  {
+    "text": "Что это за крюк 8/11?",
+    "sticker": "CAACAgIAAxkBAAELsidnijB7Fzjt_haJNKiJewQYBqrSqAACG2wAAjkVSEjHqTsR3wQhhzYE",
+    "answer": ["Параклит с отсечкой", "Палка", "Крюк c отсечкой", "Хамило"]
+  },
+  {
+    "text": "Что это за крюк 9/11?",
+    "sticker": "CAACAgIAAxkBAAELsilnijB8Uz8OEZooxmBzl0FnbEycPAACzWsAAhDfSUg8jne1JNT8WTYE",
+    "answer": ["Параклит с задержкой", "Змийца", "Фита", "Запятая"]
+  },
+  {
+    "text": "Что это за крюк 10/11?",
+    "sticker": "CAACAgIAAxkBAAELsitnijB9mcTIFfRiKcl6FWSPICu3owACMmoAAkrlSUhsMwtaDON__zYE",
+    "answer": [
+      "Параклит с подчашием",
+      "Дуда",
+      "Крюк с задержкой",
+      "Малая закрытая"
+    ]
+  },
+  {
+    "text": "Что это за крюк 11/11?",
+    "sticker": "CAACAgIAAxkBAAEMiNxnriUvNiAkLa7_AR7dUgfLX4oCtAACfmgAAqWSQEhFLzQTbSzG1zYE",
+    "answer": [
+      "Параклит с подвёрткой",
+      "Чашка",
+      "Крюк с отсечкой",
+      "Крыж"
+    ]
+  }
+],
+[
+  {
+    "text": "Что это за крюк 1/11?",
+    "sticker": "CAACAgIAAxkBAAEMkrVnr3T8bjMV9ZQ7nlbHZoRGPqQlIwAC9WMAAprrSUgh4iZLCjTmyzYE",
+    "answer": ["Запятая", "Чашка", "Челюстка", "Стопица"]
+  },
+  {
+    "text": "Что это за крюк 2/11?",
+    "sticker": "CAACAgIAAxkBAAEMkrlnr3VXH5Wwd-Dz_RgFlwswZuvRCgADYwACHVlJSBOu1CpCNKQwNgQ",
+    "answer": ["Запятая c отсечкой", "Переводка", "Крюк с отсечкой", "Крыж"]
+  },
+  {
+    "text": "Что это за крюк 3/11?",
+    "sticker": "CAACAgIAAxkBAAEMkrtnr3X6tz4EJN_7byxNe8ItBVYjSwACqG0AAnnySEhgHdWvQpf40DYE",
+    "answer": ["Запятая с задержкой", "Чашка", "Челюстка", "Ключ"]
+  },
+  {
+    "text": "Что это за крюк 4/11?",
+    "sticker": "CAACAgIAAxkBAAEMkr1nr3YJJTgV4x0wYZaS2iDZBajHwgAC3GcAAqa5UEi6FsYjPro32DYE",
+    "answer": ["Стопица", "Палка", "Скамейца", "Челюстка"]
+  },
+  {
+    "text": "Что это за крюк 5/11?",
+    "sticker": "CAACAgIAAxkBAAEMkr9nr3Y1UVZ_vYpebVaqCpe1UgSqPgAC22gAAh57UEhXbsMe2MKCtDYE",
+    "answer": ["Стопица с отсечкой", "Палка", "Параклит с подвёрткой", "Крюк"]
+  },
+  {
+    "text": "Что это за крюк 6/11?",
+    "sticker": "CAACAgIAAxkBAAELsiNnijB5qyS-wqzLvDzA4PfwzR9mAQACAmcAAhCPSEj9IDoBJY68yzYE",
+    "answer": ["Крюк с подвёрткой", "Полукулизма", "Рог", "Подчашие"]
+  },
+  {
+    "text": "Что это за крюк 7/11?",
+    "sticker": "CAACAgIAAxkBAAEMksFnr3Z-2npKx4OHF_JINPV_BIiV-QACDWUAAsQWSUgHCRrb_ZeWgDYE",
+    "answer": ["Стопица с очком", "Сложитие", "Запятая c отсечкой", "Труба"]
+  },
+  {
+    "text": "Что это за крюк 8/11?",
+    "sticker": "CAACAgIAAxkBAAEMkvJnr3t2qEnEfTn4OP2EnxOgjI0kBQACjGAAAvt7gEmW16V6FR-pjzYE",
+    "answer": ["Ключ", "Крюк", "Параклит", "Крыж"]
+  },
+  {
+    "text": "Что это за крюк 9/11?",
+    "sticker": "CAACAgIAAxkBAAEMkvRnr3uDFWZ7uFM882XjJQdALnWDzQAC4XAAAvTZeUkD2Iq_jUwgyjYE",
+    "answer": ["Челюстка", "Стопица с отсечкой", "Стопица", "Запятая"]
+  }
+]
+]
