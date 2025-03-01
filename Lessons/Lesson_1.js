@@ -41,7 +41,7 @@ function Lesson_1(ctx, buttonData) {
 
     if (buttonData === "Further_1_3") {
         return ctx.replyWithPhoto('https://i.yapx.ru/Yd4kV.png',{
-            caption: 'Пометы составляли начала полных слов, употреблявшихся в педагогике пения, современной происхождению самих помет.Эти помёты называются „степенными", потому что указывают степень высоты звука.',
+            caption: 'Пометы составляли начала полных слов, употреблявшихся в педагогике пения, современной происхождению самих помет. Эти пометы называются „степенными", потому что указывают степень высоты звука.',
                 reply_markup: {
                     inline_keyboard: [[{ text: "Дальше", callback_data: "Further_1_4" }]],
                 },
@@ -51,7 +51,7 @@ function Lesson_1(ctx, buttonData) {
 
     if (buttonData === "Further_1_4") {
         return  ctx.replyWithPhoto('https://i.yapx.ru/YcvvV.png', {
-            caption: 'Название степеных помет.\nПометы эти пишутся с левой стороны знамен (крюков) и бывает при каждом знамени не более одной пометы, будет ли само знамя обозначать один или всколько звуков. Причем помета указываеть высший звук в знамени.',
+            caption: 'Название степеных помет.\nПометы эти пишутся с левой стороны знамён (крюков) и бывает при каждом знамени не более одной пометы, будет ли само знамя обозначать один или несколько звуков. Причем помета указывает высший звук в знамени.',
             reply_markup: {
                 inline_keyboard: [
                     [
@@ -73,7 +73,7 @@ function Lesson_1(ctx, buttonData) {
     }
 
     if (buttonData === "Further_1_6") {
-        return ctx.replyWithPhoto('https://i.yapx.ru/YeewW.png', {
+        return ctx.replyWithPhoto('https://i.yapx.ru/YfGW7.png', {
             caption:'Особые знаки \nОни приставляются к знаменам.',
                 reply_markup: {
                     inline_keyboard: [[{ text: "Дальше", callback_data: "Further_1_7" }]],
